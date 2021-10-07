@@ -17,3 +17,9 @@ body {
 .main__form {
   font-size: 2rem;
 }
+ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: space-evenly;
+  border: 1px solid black;
+}
