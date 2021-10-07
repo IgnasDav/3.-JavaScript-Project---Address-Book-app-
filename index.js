@@ -45,12 +45,14 @@ function drawAddress() {
     listItem2.append(btnDelete);
     btnDelete.addEventListener("click", (event) => {
       event.preventDefault();
-      delete singleItem.name;
-      delete singleItem.tel;
-      if (!singleItem.name && !singleItem.tel) {
-        list.remove();
-      }
+      // delete singleItem.name;
+      // delete singleItem.tel;
+      arr.splice(singleItem, 1);
+      drawAddress();
     });
+    // if (!singleItem.name && !singleItem.tel) {
+    //   list.remove();
+    // }
   });
 }
 
