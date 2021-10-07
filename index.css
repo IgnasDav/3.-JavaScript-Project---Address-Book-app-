@@ -17,9 +17,14 @@ body {
 .main__form {
   font-size: 2rem;
 }
-ul {
+p {
+  display: inline-block;
+}
+.main__form__div {
   display: flex;
-  list-style-type: none;
   justify-content: space-evenly;
-  border: 1px solid black;
+}
+.main__form__btnDiv {
+  display: flex;
+  justify-content: space-between;
 }
