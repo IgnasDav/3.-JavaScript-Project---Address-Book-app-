@@ -13,9 +13,19 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #c4c4c4;
+}
+.main__header {
+  font-size: 3rem;
+  background: #eaeaea;
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
 }
 .main__form {
   font-size: 2rem;
+  background: #eaeaea;
+  margin-top: 2rem;
 }
 p {
   display: inline-block;
