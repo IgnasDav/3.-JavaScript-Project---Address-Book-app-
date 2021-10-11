@@ -37,7 +37,18 @@ function drawAddress() {
       div.classList.add("main__form__div");
       const listItem1 = document.createElement("p");
       const listItem2 = document.createElement("p");
+      //Addding array into local storage
+      localStorage.setItem("Array", JSON.stringify(arr));
+      const localStrgArr = localStorage.getItem("Array");
+      const parsedArray = JSON.parse(localStrgArr);
+      console.log(parsedArray);
+      console.log(parsedArray[i].name);
+      singleItem.name = parsedArray[i].name;
+      singleItem.tel = parsedArray[i].tel;
+      singleItem.favorite = parsedArray[i].favorite;
+
       if (isNaN(singleItem.name)) {
+        arr[i].push;
         listItem1.innerHTML = null;
         listItem1.append(singleItem.name);
         div.append(listItem1);
@@ -111,4 +122,13 @@ btnAdd.addEventListener("click", (event) => {
     });
     drawAddress();
   }
+});
+searchInput.addEventListener("input", (e) => {
+  drawAddress();
+});
+//When the page is reloaded save the values
+
+window.addEventListener("DOMContentLoaded", () => {
+  // console.log(localStorage.getItem("Array"));
+  drawAddress();
 });
