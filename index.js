@@ -27,12 +27,10 @@ function drawAddress() {
   //Looping through array to add single address
   const filteredArr = arr
     .filter((address) => {
-      if (
+      return (
         address.name.toLowerCase().includes(searchInput.value) ||
-        address.tel.toLowerCase().includes(searchInput.value)
-      ) {
-        return drawAddress();
-      }
+        address.tel.includes(searchInput.value)
+      );
     })
     .forEach((singleItem, i) => {
       const div = document.createElement("div");
