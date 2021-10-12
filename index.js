@@ -7,8 +7,9 @@ const telInput = document.querySelector("#tel");
 const btnAdd = document.querySelector(".main__form__btn");
 const mainForm = document.querySelector(".main__form");
 const addressDiv = document.createElement("div");
-const arr = [];
+let arr = [];
 const searchInput = document.querySelector("#search");
+const DATA_KEY = "data";
 // const nameInput
 
 //Inserting items into html
@@ -17,6 +18,13 @@ mainForm.append(addressDiv);
 const emptyMsg = document.createElement("h2");
 emptyMsg.textContent = "Please Input A Value";
 
+//Saving data function
+function saveData() {
+  const dataSave = arr.map((singleItem) => {
+    return Object.assign({}, singleItem, { isInEdit: false });
+  });
+  window.localStorage.setItem(DATA_KEY, JSON.stringify(dataSave));
+}
 //Drawing function
 function drawAddress() {
   // //Adding and inserting html elements
@@ -25,7 +33,7 @@ function drawAddress() {
   emptyMsg.remove();
 
   //Looping through array to add single address
-  const filteredArr = arr
+  arr
     .filter((address) => {
       return (
         address.name.toLowerCase().includes(searchInput.value) ||
@@ -37,15 +45,6 @@ function drawAddress() {
       div.classList.add("main__form__div");
       const listItem1 = document.createElement("p");
       const listItem2 = document.createElement("p");
-      //Addding array into local storage
-      localStorage.setItem("Array", JSON.stringify(arr));
-      const localStrgArr = localStorage.getItem("Array");
-      const parsedArray = JSON.parse(localStrgArr);
-      console.log(parsedArray);
-      console.log(parsedArray[i].name);
-      singleItem.name = parsedArray[i].name;
-      singleItem.tel = parsedArray[i].tel;
-      singleItem.favorite = parsedArray[i].favorite;
 
       if (isNaN(singleItem.name)) {
         arr[i].push;
@@ -73,6 +72,7 @@ function drawAddress() {
         // delete singleItem.name;
         // delete singleItem.tel;
         arr.splice(i, 1);
+        saveData();
         drawAddress();
       });
 
@@ -84,6 +84,8 @@ function drawAddress() {
       btnDiv.append(favorite);
       favorite.addEventListener("input", () => {
         singleItem.favorite = true;
+        saveData();
+        drawAddress();
       });
 
       //Adding an edit feature
@@ -102,6 +104,7 @@ function drawAddress() {
           // editTelInput.setAttribute("type", "tel");
           // singleItem.name = editNameInput;
           // singleItem.tel = editTelInput;
+          saveData();
           drawAddress();
         }
       });
@@ -119,16 +122,19 @@ btnAdd.addEventListener("click", (event) => {
       name: nameInputValue,
       tel: telInputValue,
       favorite: false,
+      isInEdit: false,
     });
+    saveData();
     drawAddress();
   }
 });
-searchInput.addEventListener("input", (e) => {
-  drawAddress();
-});
+searchInput.addEventListener("input", drawAddress);
 //When the page is reloaded save the values
 
 window.addEventListener("DOMContentLoaded", () => {
-  // console.log(localStorage.getItem("Array"));
-  drawAddress();
+  const storedArr = window.localStorage.getItem(DATA_KEY);
+  if (storedArr) {
+    arr = JSON.parse(storedArr);
+    drawAddress();
+  }
 });
